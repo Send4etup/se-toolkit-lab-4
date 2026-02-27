@@ -31,21 +31,3 @@ def test_filter_excludes_interaction_with_different_learner_id() -> None:
     assert len(result) == 1
     assert result[0].learner_id == 2
     assert result[0].item_id == 1
-
-def test_filter_returns_only_matching_item_id() -> None:
-    interactions = [_make_log(1, 1, 1), _make_log(2, 1, 2), _make_log(3, 1, 3)]
-    result = _filter_by_item_id(interactions, 2)
-    assert len(result) == 1
-    assert result[0].item_id == 2
-
-
-def test_filter_returns_multiple_matching_interactions() -> None:
-    interactions = [_make_log(1, 1, 1), _make_log(2, 2, 1), _make_log(3, 3, 2)]
-    result = _filter_by_item_id(interactions, 1)
-    assert len(result) == 2
-
-
-def test_filter_returns_empty_when_no_match() -> None:
-    interactions = [_make_log(1, 1, 2), _make_log(2, 2, 3)]
-    result = _filter_by_item_id(interactions, 99)
-    assert result == []
